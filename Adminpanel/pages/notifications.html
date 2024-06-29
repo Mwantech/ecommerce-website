@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #f9f9f9;
+    border-left: 5px solid #007bff; /* Change color as needed */
+    border-radius: 3px;
+}
+
+.section:nth-child(even) li {
+    background-color: #e9ecef;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="section">
+            <h2>Order Notifications</h2>
+            <ul id="orderNotifications">
+                <!-- Notification items will be dynamically added here -->
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Customer Notifications</h2>
+            <ul id="customerNotifications">
+                <!-- Notification items will be dynamically added here -->
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>System Notifications</h2>
+            <ul id="systemNotifications">
+                <!-- Notification items will be dynamically added here -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    // Sample data for notifications (you can replace this with dynamic data)
+    const notifications = {
+        orderNotifications: [
+            { type: 'New Orders', message: 'New order placed for Product A.' },
+            { type: 'Order Status Changes', message: 'Order #123 status updated to Shipped.' },
+            { type: 'Low Stock Alerts', message: 'Product B is low on stock (10 items left).' }
+        ],
+        customerNotifications: [
+            { type: 'New Customer Registrations', message: 'New customer signed up: John Doe.' },
+            { type: 'Customer Feedback', message: 'New review received for Product C.' }
+        ],
+        systemNotifications: [
+            { type: 'System Errors', message: 'Critical error: Database connection lost.' },
+            { type: 'Maintenance Alerts', message: 'Scheduled maintenance on server at 2 AM UTC.' }
+        ]
+    };
+
+    // Function to populate notifications
+    function populateNotifications(sectionId, data) {
+        const ul = document.getElementById(sectionId);
+        if (!ul) return;
+
+        data.forEach(item => {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${item.type}:</strong> ${item.message}`;
+            ul.appendChild(li);
+        });
+    }
+
+    // Populate each section with notifications
+    populateNotifications('orderNotifications', notifications.orderNotifications);
+    populateNotifications('customerNotifications', notifications.customerNotifications);
+    populateNotifications('systemNotifications', notifications.systemNotifications);
+});
+
+
+
+
+    </script>
+</body>
+</html>
+

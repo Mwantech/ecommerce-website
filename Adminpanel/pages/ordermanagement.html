@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Management</title>
+    <link rel="stylesheet" href="../styling/dash.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="users.html">Users management</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="ordermanagement.html">orders management</a></li>
+                <li><a href="marketing.html">marketing</a></li>
+                <li><a href="notifications.html">notifications</a></li>
+                <li><a href="productmanagement.html">productmanagement</a></li>
+                <li><a href="contentmanagement.html">contentmanagement</a></li>
+                <li><a href="customermanagement.html">customermanagement</a></li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <header class="header">
+                <h1>Dashboard</h1>
+                <div class="profile">
+                    <img src="../pages/josh.jpg" alt="Profile Picture">
+                    <span>Admin</span>
+                </div>
+            </header>
+    <div class="order-container">
+        <h1>Order Management</h1>
+
+        <div class="filters">
+            <input type="text" id="filterCustomer" placeholder="Filter by customer">
+            <input type="date" id="filterDate">
+            <select id="filterStatus">
+                <option value="">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Delivered">Delivered</option>
+            </select>
+            <button onclick="applyFilters()">Apply Filters</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Total Amount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="ordersTable">
+                <!-- Orders will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+        </main>
+    </div>
+
+    <script>
+        const orders = [
+    { id: 1, customer: 'John Doe', date: '2024-06-21', status: 'Pending', total: 99.99 },
+    { id: 2, customer: 'Jane Smith', date: '2024-06-22', status: 'Shipped', total: 149.99 },
+    { id: 3, customer: 'Mike Johnson', date: '2024-06-23', status: 'Delivered', total: 199.99 },
+];
+
+function loadOrders() {
+    const ordersTable = document.getElementById('ordersTable');
+    ordersTable.innerHTML = '';
+
+    orders.forEach(order => {
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+            <td>${order.id}</td>
+            <td>${order.customer}</td>
+            <td>${order.date}</td>
+            <td>
+                <select onchange="updateStatus(${order.id}, this.value)">
+                    <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                    <option value="Shipped" ${order.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
+                    <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                </select>
+            </td>
+            <td>${order.total.toFixed(2)}</td>
+            <td>
+                <button onclick="generateInvoice(${order.id})">Generate Invoice</button>
+            </td>
+        `;
+        
+        ordersTable.appendChild(row);
+    });
+}
+
+function updateStatus(orderId, newStatus) {
+    const order = orders.find(o => o.id === orderId);
+    if (order) {
+        order.status = newStatus;
+        loadOrders();
+    }
+}
+
+function applyFilters() {
+    const customerFilter = document.getElementById('filterCustomer').value.toLowerCase();
+    const dateFilter = document.getElementById('filterDate').value;
+    const statusFilter = document.getElementById('filterStatus').value;
+
+    const filteredOrders = orders.filter(order => {
+        return (!customerFilter || order.customer.toLowerCase().includes(customerFilter)) &&
+               (!dateFilter || order.date === dateFilter) &&
+               (!statusFilter || order.status === statusFilter);
+    });
+
+    const ordersTable = document.getElementById('ordersTable');
+    ordersTable.innerHTML = '';
+
+    filteredOrders.forEach(order => {
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+            <td>${order.id}</td>
+            <td>${order.customer}</td>
+            <td>${order.date}</td>
+            <td>
+                <select onchange="updateStatus(${order.id}, this.value)">
+                    <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                    <option value="Shipped" ${order.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
+                    <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                </select>
+            </td>
+            <td>${order.total.toFixed(2)}</td>
+            <td>
+                <button onclick="generateInvoice(${order.id})">Generate Invoice</button>
+            </td>
+        `;
+        
+        ordersTable.appendChild(row);
+    });
+}
+
+function generateInvoice(orderId) {
+    const order = orders.find(o => o.id === orderId);
+    if (order) {
+        alert(`Invoice generated for Order ID: ${order.id}, Customer: ${order.customer}, Total: $${order.total.toFixed(2)}`);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadOrders);
+    </script>
+</body>
+</html>
+
+

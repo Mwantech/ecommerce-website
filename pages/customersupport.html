@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header, footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+main {
+    padding: 1rem;
+}
+
+#faq {
+    margin-bottom: 2rem;
+}
+
+#search-bar {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+#chatbot {
+    border-top: 1px solid #ccc;
+    padding-top: 1rem;
+}
+
+#chat-window {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 1rem;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#chat-content {
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+#user-input {
+    width: 80%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#send-button {
+    width: 18%;
+    padding: 0.5rem;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+.message {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border-radius: 5px;
+}
+
+.user {
+    background-color: #d1e7dd;
+    align-self: flex-end;
+}
+
+.bot {
+    background-color: #f8d7da;
+    align-self: flex-start;
+}
+
+.agent {
+    background-color: #cff4fc;
+    align-self: flex-start;
+}
+
+.faq-item {
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem 0;
+}
+
+.faq-question {
+    font-weight: bold;
+}
+
+.faq-answer {
+    margin-top: 0.25rem;
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    #user-input, #send-button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    #send-button {
+        width: 100%;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Customer Support</h1>
+    </header>
+
+    <main>
+        <section id="faq">
+            <h2>Frequently Asked Questions</h2>
+            <input type="text" id="search-bar" placeholder="Search for answers...">
+            <div id="faq-content">
+                <!-- FAQs will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <section id="chatbot">
+            <h2>Chat with Us</h2>
+            <div id="chat-window">
+                <div id="chat-content">
+                    <!-- Chat content will be dynamically inserted here -->
+                </div>
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button id="send-button">Send</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 E-commerce Store</p>
+    </footer>
+
+    <script>
+      document.getElementById('send-button').addEventListener('click', sendMessage);
+document.getElementById('user-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') sendMessage();
+});
+
+let waitingForAgentResponse = false;
+
+function sendMessage() {
+    const userInput = document.getElementById('user-input').value.trim();
+    if (userInput) {
+        appendMessage('user', userInput);
+        document.getElementById('user-input').value = '';
+        handleBotResponse(userInput);
+    }
+}
+
+function appendMessage(sender, message) {
+    const chatContent = document.getElementById('chat-content');
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', sender);
+    messageElement.innerText = message;
+    chatContent.appendChild(messageElement);
+    chatContent.scrollTop = chatContent.scrollHeight;
+}
+
+function handleBotResponse(userInput) {
+    if (waitingForAgentResponse) {
+        if (userInput.toLowerCase() === 'yes') {
+            connectToAgent();
+        } else if (userInput.toLowerCase() === 'no') {
+            appendMessage('bot', 'Alright, please rephrase your question.');
+            waitingForAgentResponse = false;
+        } else {
+            appendMessage('bot', 'Please reply with "yes" or "no".');
+        }
+        return;
+    }
+
+    // Placeholder for actual NLP processing
+    const responses = {
+        'hello': 'Hi there! How can I assist you today?',
+        'order': 'You can check your order status in the orders section.',
+        'shipping': 'Our standard shipping takes 5-7 business days.'
+    };
+
+    const response = responses[userInput.toLowerCase()] || 
+        'I\'m sorry, I didn\'t understand that. Would you like to rephrase your question or connect with a live agent? Reply with "yes" or "no".';
+
+    setTimeout(() => {
+        appendMessage('bot', response);
+        if (!responses[userInput.toLowerCase()]) {
+            waitingForAgentResponse = true;
+        }
+    }, 1000);
+}
+
+function connectToAgent() {
+    appendMessage('bot', 'Connecting you to a live agent...');
+    waitingForAgentResponse = false;
+
+    // Simulate live agent connection
+    setTimeout(() => {
+        appendMessage('agent', 'Hi, this is a live agent. How can I assist you?');
+    }, 2000);
+
+    // Implement actual live agent connection here
+}
+
+// Sample FAQ data
+const faqData = [
+    { question: 'How do I track my order?', answer: 'You can track your order using the tracking number provided in your order confirmation email.' },
+    { question: 'What is your return policy?', answer: 'You can return any item within 30 days of purchase for a full refund.' },
+    { question: 'How do I contact customer support?', answer: 'You can contact customer support via our chatbot or by calling our support hotline.' }
+];
+
+document.getElementById('search-bar').addEventListener('input', function(e) {
+    const searchTerm = e.target.value.toLowerCase();
+    const filteredFaqs = faqData.filter(faq => faq.question.toLowerCase().includes(searchTerm) || faq.answer.toLowerCase().includes(searchTerm));
+    displayFaqs(filteredFaqs);
+});
+
+function displayFaqs(faqs) {
+    const faqContent = document.getElementById('faq-content');
+    faqContent.innerHTML = '';
+    faqs.forEach(faq => {
+        const faqItem = document.createElement('div');
+        faqItem.classList.add('faq-item');
+        const question = document.createElement('p');
+        question.classList.add('faq-question');
+        question.innerText = faq.question;
+        const answer = document.createElement('p');
+        answer.classList.add('faq-answer');
+        answer.innerText = faq.answer;
+        faqItem.appendChild(question);
+        faqItem.appendChild(answer);
+        faqContent.appendChild(faqItem);
+    });
+}
+
+// Initialize FAQ display
+displayFaqs(faqData);
+    </script>
+</body>
+</html>

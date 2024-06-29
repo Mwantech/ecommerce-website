@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management</title>
+    <link rel="stylesheet" href="../styling/dash.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="users.html">Users management</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="ordermanagement.html">orders management</a></li>
+                <li><a href="marketing.html">marketing</a></li>
+                <li><a href="notifications.html">notifications</a></li>
+                <li><a href="productmanagement.html">productmanagement</a></li>
+                <li><a href="contentmanagement.html">contentmanagement</a></li>
+                <li><a href="customermanagement.html">customermanagement</a></li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <header class="header">
+                <h1>Customer Management</h1>
+                <div class="profile">
+                    <img src="../pages/josh.jpg" alt="Profile Picture">
+                    <span>Admin</span>
+                </div>
+            </header>
+    <div class="customer-container">
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showSection('view-customers')">View Customers</a></li>
+                <li><a href="#" onclick="showSection('customer-profiles')">Customer Profiles</a></li>
+                <li><a href="#" onclick="showSection('customer-segmentation')">Customer Segmentation</a></li>
+            </ul>
+        </nav>
+
+        <section id="view-customers" class="content-section">
+            <h2>View Customers</h2>
+            <table id="customer-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Customer rows will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </section>
+
+        <section id="customer-profiles" class="content-section">
+            <h2>Customer Profiles</h2>
+            <div id="customer-profile">
+                <!-- Detailed profile will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <section id="customer-segmentation" class="content-section">
+            <h2>Customer Segmentation</h2>
+            <div id="segmentation-result">
+                <!-- Segmentation results will be dynamically inserted here -->
+            </div>
+        </section>
+    </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    showSection('view-customers');
+    loadCustomers();
+});
+
+function showSection(sectionId) {
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.style.display = 'none';
+    });
+    document.getElementById(sectionId).style.display = 'block';
+}
+
+function loadCustomers() {
+    const customers = [
+        { id: 1, name: 'John Doe', email: 'john@example.com', phone: '123-456-7890' },
+        { id: 2, name: 'Jane Smith', email: 'jane@example.com', phone: '987-654-3210' }
+    ];
+
+    const customerTableBody = document.querySelector('#customer-table tbody');
+    customerTableBody.innerHTML = '';
+
+    customers.forEach(customer => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${customer.name}</td>
+            <td>${customer.email}</td>
+            <td>${customer.phone}</td>
+            <td><button onclick="viewProfile(${customer.id})">View Profile</button></td>
+        `;
+        customerTableBody.appendChild(row);
+    });
+}
+
+function viewProfile(customerId) {
+    const customers = [
+        { id: 1, name: 'John Doe', email: 'john@example.com', phone: '123-456-7890', orders: ['Order 1', 'Order 2'] },
+        { id: 2, name: 'Jane Smith', email: 'jane@example.com', phone: '987-654-3210', orders: ['Order 3', 'Order 4'] }
+    ];
+
+    const customer = customers.find(c => c.id === customerId);
+
+    if (customer) {
+        const profileSection = document.getElementById('customer-profile');
+        profileSection.innerHTML = `
+            <h3>${customer.name}</h3>
+            <p>Email: ${customer.email}</p>
+            <p>Phone: ${customer.phone}</p>
+            <h4>Order History:</h4>
+            <ul>
+                ${customer.orders.map(order => `<li>${order}</li>`).join('')}
+            </ul>
+        `;
+
+        showSection('customer-profiles');
+    }
+}
+
+
+    </script>
+</body>
+</html>

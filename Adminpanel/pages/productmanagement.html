@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <link rel="stylesheet" href="../styling/dash.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="users.html">Users management</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="ordermanagement.html">orders management</a></li>
+                <li><a href="marketing.html">marketing</a></li>
+                <li><a href="notifications.html">notifications</a></li>
+                <li><a href="productmanagement.html">productmanagement</a></li>
+                <li><a href="contentmanagement.html">contentmanagement</a></li>
+                <li><a href="customermanagement.html">customermanagement</a></li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <header class="header">
+                <h1>Product Management</h1>
+                <div class="profile">
+                    <img src="../pages/josh.jpg" alt="Profile Picture">
+                    <span>Admin</span>
+                </div>
+            </header>
+        <div class="product-management">
+    <section id="product-form">
+        <h2>Add/Edit Product</h2>
+        <form id="productForm">
+            <input type="hidden" id="productId">
+            <label for="productName">Name:</label>
+            <input type="text" id="productName" required><br>
+            <label for="productPrice">Price:</label>
+            <input type="number" id="productPrice" required><br>
+            <label for="productDescription">Description:</label>
+            <textarea id="productDescription" required></textarea><br>
+            <label for="productStock">Stock:</label>
+            <input type="number" id="productStock" required><br>
+            <label for="productCategory">Category:</label>
+            <select id="productCategory"></select><br>
+            <button type="submit">Save Product</button>
+        </form>
+    </section>
+
+    <section id="bulk-upload">
+        <h2>Bulk Upload</h2>
+        <form id="bulkUploadForm" enctype="multipart/form-data">
+            <input type="file" id="bulkUploadFile" accept=".csv" required><br>
+            <button type="submit">Upload</button>
+        </form>
+    </section>
+
+    <section id="inventory-management">
+        <h2>Inventory Management</h2>
+        <table id="productTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Stock</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <section id="category-management">
+        <h2>Category Management</h2>
+        <form id="categoryForm">
+            <label for="categoryName">Category Name:</label>
+            <input type="text" id="categoryName" required><br>
+            <button type="submit">Add Category</button>
+        </form>
+        <ul id="categoryList"></ul>
+    </section>
+        </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+    const productForm = document.getElementById('productForm');
+    const bulkUploadForm = document.getElementById('bulkUploadForm');
+    const categoryForm = document.getElementById('categoryForm');
+    const productTable = document.getElementById('productTable').getElementsByTagName('tbody')[0];
+    const categoryList = document.getElementById('categoryList');
+    const productCategory = document.getElementById('productCategory');
+
+    let products = [];
+    let categories = [];
+
+    productForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const id = document.getElementById('productId').value;
+        const name = document.getElementById('productName').value;
+        const price = document.getElementById('productPrice').value;
+        const description = document.getElementById('productDescription').value;
+        const stock = document.getElementById('productStock').value;
+        const category = document.getElementById('productCategory').value;
+
+        if (id) {
+            updateProduct(id, name, price, description, stock, category);
+        } else {
+            addProduct(name, price, description, stock, category);
+        }
+    });
+
+    bulkUploadForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const file = document.getElementById('bulkUploadFile').files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const csv = e.target.result;
+                parseCSV(csv);
+            };
+            reader.readAsText(file);
+        }
+    });
+
+    categoryForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const categoryName = document.getElementById('categoryName').value;
+        addCategory(categoryName);
+    });
+
+    function addProduct(name, price, description, stock, category) {
+        const id = Date.now().toString();
+        const product = { id, name, price, description, stock, category };
+        products.push(product);
+        renderProducts();
+        productForm.reset();
+    }
+
+    function updateProduct(id, name, price, description, stock, category) {
+        const product = products.find(product => product.id === id);
+        product.name = name;
+        product.price = price;
+        product.description = description;
+        product.stock = stock;
+        product.category = category;
+        renderProducts();
+        productForm.reset();
+    }
+
+    function deleteProduct(id) {
+        products = products.filter(product => product.id !== id);
+        renderProducts();
+    }
+
+    function parseCSV(csv) {
+        const lines = csv.split('\n');
+        for (const line of lines) {
+            const [name, price, description, stock, category] = line.split(',');
+            if (name && price && description && stock && category) {
+                addProduct(name, parseFloat(price), description, parseInt(stock), category);
+            }
+        }
+    }
+
+    function addCategory(name) {
+        categories.push(name);
+        renderCategories();
+        categoryForm.reset();
+    }
+
+    function renderProducts() {
+        productTable.innerHTML = '';
+        for (const product of products) {
+            const row = productTable.insertRow();
+            row.insertCell(0).textContent = product.id;
+            row.insertCell(1).textContent = product.name;
+            row.insertCell(2).textContent = product.price;
+            row.insertCell(3).textContent = product.description;
+            row.insertCell(4).textContent = product.stock;
+            row.insertCell(5).textContent = product.category;
+            const actionsCell = row.insertCell(6);
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.onclick = () => editProduct(product);
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.onclick = () => deleteProduct(product.id);
+            actionsCell.appendChild(editButton);
+            actionsCell.appendChild(deleteButton);
+        }
+    }
+
+    function renderCategories() {
+        productCategory.innerHTML = '';
+        categoryList.innerHTML = '';
+        for (const category of categories) {
+            const option = document.createElement('option');
+            option.value = category;
+            option.textContent = category;
+            productCategory.appendChild(option);
+            const li = document.createElement('li');
+            li.textContent = category;
+            categoryList.appendChild(li);
+        }
+    }
+
+    function editProduct(product) {
+        document.getElementById('productId').value = product.id;
+        document.getElementById('productName').value = product.name;
+        document.getElementById('productPrice').value = product.price;
+        document.getElementById('productDescription').value = product.description;
+        document.getElementById('productStock').value = product.stock;
+        document.getElementById('productCategory').value = product.category;
+    }
+
+    renderCategories();
+});
+
+    </script>
+</body>
+</html>
