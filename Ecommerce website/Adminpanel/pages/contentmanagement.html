@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Management</title>
+    <link rel="stylesheet" href="../styling/dash.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="users.html">Users management</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="ordermanagement.html">orders management</a></li>
+                <li><a href="marketing.html">marketing</a></li>
+                <li><a href="notifications.html">notifications</a></li>
+                <li><a href="productmanagement.html">productmanagement</a></li>
+                <li><a href="contentmanagement.html">contentmanagement</a></li>
+                <li><a href="customermanagement.html">customermanagement</a></li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <header class="header">
+                <h1>content management</h1>
+                <div class="profile">
+                    <img src="../pages/josh.jpg" alt="Profile Picture">
+                    <span>Admin</span>
+                </div>
+            </header>
+   
+        <div class="pages">
+            <h2>Pages</h2>
+            <ul id="pages-list"></ul>
+            <button id="add-page-btn">Add Page</button>
+        </div>
+        <div class="blog">
+            <h2>Blog Posts</h2>
+            <ul id="blog-posts-list"></ul>
+            <button id="add-post-btn">Add Post</button>
+        </div>
+        </main>
+    </div>
+    <script>
+        // Sample data (replace with actual data management logic)
+let pages = [
+    { id: 1, title: "About Us", content: "This is the About Us page." },
+    { id: 2, title: "Contact Us", content: "This is the Contact Us page." },
+    { id: 3, title: "FAQs", content: "This is the FAQs page." }
+];
+
+let blogPosts = [
+    { id: 1, title: "First Blog Post", content: "This is the content of the first blog post." },
+    { id: 2, title: "Second Blog Post", content: "This is the content of the second blog post." }
+];
+
+// Function to display pages
+function renderPages() {
+    const pagesList = document.getElementById('pages-list');
+    pagesList.innerHTML = '';
+    pages.forEach(page => {
+        const li = document.createElement('li');
+        li.textContent = page.title;
+        pagesList.appendChild(li);
+    });
+}
+
+// Function to display blog posts
+function renderBlogPosts() {
+    const blogPostsList = document.getElementById('blog-posts-list');
+    blogPostsList.innerHTML = '';
+    blogPosts.forEach(post => {
+        const li = document.createElement('li');
+        li.textContent = post.title;
+        blogPostsList.appendChild(li);
+    });
+}
+
+// Initial rendering
+renderPages();
+renderBlogPosts();
+
+// Event listeners (for demonstration)
+document.getElementById('add-page-btn').addEventListener('click', function() {
+    const newPage = { id: pages.length + 1, title: `New Page ${pages.length + 1}`, content: '' };
+    pages.push(newPage);
+    renderPages();
+});
+
+document.getElementById('add-post-btn').addEventListener('click', function() {
+    const newPost = { id: blogPosts.length + 1, title: `New Post ${blogPosts.length + 1}`, content: '' };
+    blogPosts.push(newPost);
+    renderBlogPosts();
+});
+
+
+
+    </script>
+</body>
+</html>

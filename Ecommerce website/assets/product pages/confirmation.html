@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4CAF50;
+            text-align: center;
+        }
+        p {
+            font-size: 16px;
+            color: #333;
+        }
+        .order-summary {
+            margin-top: 20px;
+        }
+        .order-summary h2 {
+            color: #4CAF50;
+        }
+        .order-summary table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .order-summary table, .order-summary th, .order-summary td {
+            border: 1px solid #ddd;
+        }
+        .order-summary th, .order-summary td {
+            padding: 8px;
+            text-align: left;
+        }
+        .order-summary th {
+            background-color: #f2f2f2;
+        }
+        .buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .buttons a, .buttons button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .buttons a:hover, .buttons button:hover {
+            background-color: #45a049;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+            .order-summary table, .order-summary th, .order-summary td {
+                font-size: 14px;
+            }
+            .buttons a, .buttons button {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Thank you for your order!</h1>
+        <p>Your order has been placed successfully. A confirmation email has been sent to your provided email address.</p>
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Product Name</td>
+                        <td id="order-quantity"></td>
+                        <td id="order-price"></td>
+                    </tr>
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td id="order-total"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Estimated Delivery Date: <strong>July 15, 2024</strong></p>
+        </div>
+        <div class="buttons">
+            <a href="paymentmanagement.html?orderId=12345&sellerInfo=SellerName&amount=150" target="_blank">Track Order & Manage Payment</a>
+            <a href="https://yourstore.com/customer-support" target="_blank">Customer Support</a>
+            <button onclick="continueShopping()">Continue Shopping</button>
+        </div>
+    </div>
+
+    <script>
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            const entries = params.entries();
+            const result = {};
+            for (const [key, value] of entries) {
+                result[key] = value;
+            }
+            return result;
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const orderData = getQueryParams();
+            const quantity = orderData.quantity || 0;
+            const price = 50; // This should be retrieved from the product page dynamically
+            const totalAmount = quantity * price;
+
+            document.getElementById('order-quantity').innerText = quantity;
+            document.getElementById('order-price').innerText = `$${price}`;
+            document.getElementById('order-total').innerText = `$${totalAmount}`;
+        });
+
+        function continueShopping() {
+            window.location.href = "https://yourstore.com";
+        }
+    </script>
+</body>
+
+
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navigation Bar</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-brand">JASX</div>
+            <div class="nav-menu">
+                <ul>
+                    <li><a href="#new">New Arrivals</a></li>
+                    <li><a href="pages/customersupport.html">Customer Support</a></li>
+                    <li><a href="pages/contact us.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="search-container">
+                <input type="text" placeholder="Search...">
+                <button type="button" onclick="searchProducts()">Search</button>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+    <div class="hero">
+    <div class="cylinder">
+        <div class="card"><img src="assets/banners/b1.png" alt="image 1"></div>
+        <div class="card"><img src="assets/banners/b2.png" alt="image 2"></div>
+        <div class="card"><img src="assets/banners/b3.png" alt="image 3"></div>
+        <div class="card"><img src="assets/banners/b4.png" alt="image 4"></div>
+        <div class="card"><img src="assets/banners/b5.png" alt="image 5"></div>
+        <div class="card"><img src="assets/banners/b6.png" alt="image 6"></div>
+        <div class="card"><img src="assets/banners/b7.png" alt="image 7"></div>
+        <div class="card"><img src="assets/banners/b8.png" alt="image 8"></div>
+    </div>
+    </div>
+    <section class="heros">
+        <div class="heros-content">
+            <h1>New Arrivals for Summer</h1>
+            <p>Discover our latest collection of summer shoes.</p>
+            <a href="pages/productspage.html" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <section class="featured-products">
+        <h2>Featured Products</h2>
+        <div class="product-grid">
+            <!-- Product items will be dynamically generated -->
+        </div>
+    </section>
+
+    <section class="promotions">
+        <div class="promo-banner">
+            <h2>50% Off All Sandals!</h2>
+            <p>Find your perfect pair for summer.</p>
+            <a href="#" class="btn">Shop Sandals</a>
+        </div>
+        <div class="promo-banner">
+            <h2>Free Shipping on Orders Over $50</h2>
+            <p>Don't miss out! Limited time offer.</p>
+            <a href="#" class="btn">Shop Now</a>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 JASX Store. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // script.js
+document.getElementById('nav-toggle').addEventListener('click', function () {
+    const navMenu = document.querySelector('.nav-menu');
+    navMenu.classList.toggle('show-menu');
+});
+
+function searchProducts() {
+    const query = document.querySelector('.search-container input').value;
+    alert(`Search for: ${query}`);
+    // Add your product search logic here
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Tracking & Escrow Payment</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header, footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1em;
+}
+
+main {
+    padding: 1em;
+    max-width: 800px;
+    margin: auto;
+}
+
+section {
+    margin-bottom: 2em;
+}
+
+h2 {
+    border-bottom: 2px solid #333;
+    padding-bottom: 0.5em;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 0.5em;
+}
+
+input, select, textarea, button {
+    margin-bottom: 1em;
+    padding: 0.5em;
+    font-size: 1em;
+}
+
+button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Order Tracking & Escrow Payment</h1>
+    </header>
+    <main>
+        <section id="order-tracking">
+            <h2>Order Tracking</h2>
+            <form id="order-tracking-form">
+                <label for="order-id">Order ID:</label>
+                <input type="text" id="order-id" name="order-id" required>
+                <label for="seller-info">Seller Information:</label>
+                <input type="text" id="seller-info" name="seller-info" required>
+                <label for="receipt">Upload Receipt:</label>
+                <input type="file" id="receipt" name="receipt" accept="image/*,application/pdf" required>
+                <button type="submit">Track Order</button>
+            </form>
+            <div id="tracking-info"></div>
+        </section>
+        <section id="release-funds">
+            <h2>Release Funds</h2>
+            <button id="release-funds-button">Release Funds to Seller</button>
+        </section>
+        <section id="dispute-resolution">
+            <h2>Dispute Resolution</h2>
+            <form id="dispute-form">
+                <label for="dispute-reason">Reason for Dispute:</label>
+                <textarea id="dispute-reason" name="dispute-reason" required></textarea>
+                <button type="submit">Submit Dispute</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Order Tracking & Escrow Payment Platform</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById('order-id').value = params.get('orderId');
+            document.getElementById('seller-info').value = params.get('sellerInfo');
+
+            // Assuming the amount is also passed in the query params
+            const amount = params.get('amount');
+            document.getElementById('release-funds-button').innerText = `Release $${amount} to Seller`;
+        });
+
+        document.getElementById('order-tracking-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Add order tracking functionality here
+            const orderId = document.getElementById('order-id').value;
+            const sellerInfo = document.getElementById('seller-info').value;
+            const receipt = document.getElementById('receipt').files[0];
+
+            // Mock API call for order tracking
+            fetch(`https://api.example.com/track?orderId=${orderId}&sellerInfo=${sellerInfo}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('tracking-info').innerHTML = `
+                        <p>Estimated Delivery Date: ${data.estimatedDeliveryDate}</p>
+                        <p>Current Location: ${data.currentLocation}</p>
+                    `;
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('release-funds-button').addEventListener('click', function() {
+            // Add functionality to release funds from escrow
+            fetch(`https://api.example.com/release-funds`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(response => response.json())
+            .then(data => alert('Funds released to seller'))
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('dispute-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Add dispute resolution functionality here
+            const disputeReason = document.getElementById('dispute-reason').value;
+
+            // Mock API call for dispute resolution
+            fetch(`https://api.example.com/dispute`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ disputeReason })
+            })
+            .then(response => response.json())
+            .then(data => alert('Dispute submitted'))
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+
+</html>

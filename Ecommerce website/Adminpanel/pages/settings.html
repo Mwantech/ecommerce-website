@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store Settings</title>
+    <link rel="stylesheet" href="../styling/dash.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Admin</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="users.html">Users management</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="reports.html">Reports</a></li>
+                <li><a href="ordermanagement.html">orders management</a></li>
+                <li><a href="marketing.html">marketing</a></li>
+                <li><a href="notifications.html">notifications</a></li>
+                <li><a href="productmanagement.html">productmanagement</a></li>
+                <li><a href="contentmanagement.html">contentmanagement</a></li>
+                <li><a href="customermanagement.html">customermanagement</a></li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <header class="header">
+                <h1>Store settings</h1>
+                <div class="profile">
+                    <img src="../pages/josh.jpg" alt="Profile Picture">
+                    <span>Admin</span>
+                </div>
+            </header>
+                    <div class="settings-container">
+            <div class="settings-section">
+            <!-- Form for configuring store settings -->
+            <form id="store-settings-form">
+                <label for="store-name">Store Name:</label>
+                <input type="text" id="store-name" name="store-name" required>
+                
+                <label for="store-address">Store Address:</label>
+                <input type="text" id="store-address" name="store-address" required>
+                
+                <label for="currency">Currency:</label>
+                <select id="currency" name="currency">
+                    <option value="usd">USD</option>
+                    <option value="eur">EUR</option>
+                    <option value="gbp">GBP</option>
+                    <!-- Add more options as needed -->
+                </select>
+                
+                <!-- Add more settings fields as needed -->
+                
+                <button type="submit">Save Settings</button>
+            </form>
+        </div>
+
+        <div class="settings-section">
+            <h2>Payment Methods</h2>
+            <!-- Payment methods configuration -->
+            <ul id="payment-methods-list">
+                <!-- List payment methods dynamically using JavaScript -->
+            </ul>
+            <button id="add-payment-method-btn">Add Payment Method</button>
+        </div>
+
+        <div class="settings-section">
+            <h2>Shipping Methods</h2>
+            <!-- Shipping methods configuration -->
+            <ul id="shipping-methods-list">
+                <!-- List shipping methods dynamically using JavaScript -->
+            </ul>
+            <button id="add-shipping-method-btn">Add Shipping Method</button>
+        </div>
+
+        <div class="settings-section">
+            <h2>Tax Settings</h2>
+            <!-- Tax settings configuration -->
+            <form id="tax-settings-form">
+                <label for="tax-rate">Tax Rate (%):</label>
+                <input type="number" id="tax-rate" name="tax-rate" min="0" step="0.01" required>
+                
+                <!-- Add more tax settings fields as needed -->
+                
+                <button type="submit">Save Tax Settings</button>
+            </form>
+        </div>
+    </main>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for handling dynamic behavior and form submissions
+
+// Function to handle form submission for store settings
+document.getElementById('store-settings-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    // Code to handle form data submission (e.g., save settings to backend)
+    alert('Store settings saved!');
+});
+
+// Function to handle form submission for tax settings
+document.getElementById('tax-settings-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+    // Code to handle tax settings submission (e.g., save tax rates to backend)
+    alert('Tax settings saved!');
+});
+
+// Example of dynamically adding payment methods (similar approach for shipping methods)
+const addPaymentMethodBtn = document.getElementById('add-payment-method-btn');
+const paymentMethodsList = document.getElementById('payment-methods-list');
+
+addPaymentMethodBtn.addEventListener('click', function() {
+    const newPaymentMethod = prompt('Enter new payment method:');
+    if (newPaymentMethod) {
+        const li = document.createElement('li');
+        li.textContent = newPaymentMethod;
+        paymentMethodsList.appendChild(li);
+    }
+});
+
+
+
+    </script>
+</body>
+</html>

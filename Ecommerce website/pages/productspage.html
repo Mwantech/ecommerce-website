@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation Bar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/productspage.css">
+</head>
+<body>
+  <nav class="navbar">
+    <!-- Logo or Brand Name -->
+    <a href="#" class="navbar-brand">JASX</a>
+    <div class="search-bar">
+        <input type="text" placeholder="Search products...">
+        <button type="submit">Search</button>
+    </div>
+    
+    <!-- Filters Dropdown -->
+    <div class="dropdown">
+        <i class="fas fa-filter dropbtn"></i>
+        <span class="overlay">Filters</span>
+      <div class="dropdown-content">
+        <a href="#">Category</a>
+        <a href="#">Size</a>
+        <a href="#">Color</a>
+        <a href="#">Brand</a>
+        <a href="#">Price Range</a>
+        <a href="#">Ratings</a>
+      </div>
+    </div>
+    
+    <!-- Sorting Dropdown -->
+    <div class="dropdown">
+        <i class="fas fa-sort dropbtn"></i>
+        <span class="overlay">Sort By</span>
+      <div class="dropdown-content">
+        <a href="#">Popularity</a>
+        <a href="#">Price: Low to High</a>
+        <a href="#">Price: High to Low</a>
+        <a href="#">Newest Arrivals</a>
+        <a href="#">Best Ratings</a>
+      </div>
+    </div>
+    <!--shopping cart-->
+    <div class="shopping-cart" onclick="showCart()">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="cart-counter" id="cart-counter">0</span>
+  </div>
+  </nav>
+  <main id="product-grid">
+    <!-- Product cards will be dynamically added here -->
+     
+     <div class="product-card">
+      <img src="../assets/products/air jordan 1 university blue.jpg">
+      <h3>air jordan</h3>
+      <a href="../assets/product pages/aijordan1blue.html">university blue</a>
+      <div class="rating">
+        <p>Rating: ⭐⭐⭐⭐☆</p>
+      </div>
+      <div class="price">$89</div>
+      <button class="action-button" onclick="addToCart('jordan airmax', 89)">Add to Cart</button>
+     </div>
+
+     <div class="product-card">
+      <img src="../assets/products/air jordan fly.jpg">
+      <h3>jordan airmax</h3>
+      <a href="../assets/product pages/airjordanfly.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+      <div class="rating">
+        <p>Rating: ⭐⭐⭐⭐☆</p>
+      </div>
+      <div class="price">$67</div>
+      <button class="action-button">Add to Cart</button>
+     </div>
+
+     <div class="product-card">
+      <img src="../assets/products/nike air jordan gold pendabts.jpg ">
+      <h3>nike air jordan</h3>
+      <a href="../assets/product pages/nikeairjordan.html">gold pendabts</a>
+      <div class="rating">
+        <p>Rating: ⭐⭐⭐⭐☆</p>
+      </div>
+      <div class="price">$89</div>
+      <button class="action-button">Add to Cart</button>
+     </div>
+
+     <div class="product-card">
+      <img src="../assets/products/air jordan 4 oreo.jpg ">
+      <h3>air jordan 4 oreo</h3>
+      <a href="../assets/product pages/air jordan oreo.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+      <div class="rating">
+        <p>Rating: ⭐⭐⭐⭐☆</p>
+      </div>
+      <div class="price">$89</div>
+      <button class="action-button">Add to Cart</button>
+     </div>
+
+     <div class="product-card">
+      <img src="../assets/products/air jordan 4 oxidised green 4.jpg">
+      <h3>jordan airmax</h3>
+      <a href="../assets/product pages/airjordan4green.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+      <div class="rating">
+        <p>Rating: ⭐⭐⭐⭐☆</p>
+      </div>
+      <div class="price">$89</div>
+      <button class="action-button">Add to Cart</button>
+     </div>
+
+     <div class="product-card">
+      <img src="../assets/products/air jordan retro 4.jpg">
+      <h3>air jordan retro 4</h3>
+      <a href="../assets/product pages/airjordanretro4.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+      <div class="rating">
+        <p>Rating: ⭐⭐⭐⭐☆</p>
+      </div>
+      <div class="price">$89</div>
+      <button class="action-button">Add to Cart</button>
+     </div>
+
+     <div class="product-card">
+      <img src="../assets/products/nike jordan 4 paris olympics.jpg">
+      <h3>nike jordan 4</h3>
+      <a href="../assets/product pages/nikejordan4.html">paris olympics</a>
+      <div class="rating">
+        <p>Rating: ⭐⭐⭐⭐☆</p>
+      </div>
+      <div class="price">$89</div>
+      <button class="action-button">Add to Cart</button>
+     </div>
+
+     <div class="product-card">
+      <img src="../assets/products/air jordan 4  craft.jpg">
+      <h3>air jordan 4 craft</h3>
+      <a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
+      <div class="rating">
+        <p>Rating: ⭐⭐⭐⭐☆</p>
+      </div>
+      <div class="price">$89</div>
+      <button class="action-button">Add to Cart</button>
+     </div>
+
+</main>
+
+<!-- Cart Modal -->
+<div id="cart-modal" class="cart-modal">
+  <div class="cart-modal-content">
+    <span class="close" onclick="closeCart()">&times;</span>
+    <h2>Your Cart</h2>
+    <div id="cart-items"></div>
+    <button onclick="clearCart()">Clear Cart</button>
+  </div>
+</div>
+
+
+<footer>
+  <p>&copy; 2024 JASX Store. All rights reserved.</p>
+</footer>
+  <script src="../assets/js/product.js"></script>
+  <script src="../assets/js/shoppingcart.js"></script>
+</body>
+</html>

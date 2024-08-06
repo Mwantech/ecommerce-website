@@ -1,0 +1,184 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #89d42c;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header input {
+   margin-right: 50px;
+    font-size: 1em;
+}
+
+main {
+    padding: 2em;
+}
+
+#product-details {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-images {
+    flex: 1;
+    min-width: 300px;
+}
+
+#main-image {
+    width: 100%;
+    height: auto;
+}
+
+.thumbnail-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1em;
+}
+
+.thumbnail {
+    width: 20%;
+    cursor: pointer;
+}
+
+.product-info {
+    flex: 1;
+    min-width: 300px;
+    padding: 0 2em;
+}
+
+.price {
+    color: green;
+    font-size: 1.5em;
+}
+
+.size-guide {
+    margin: 1em 0;
+}
+
+.user-interactions button {
+    padding: 0.5em 1em;
+    margin-right: 1em;
+    cursor: pointer;
+}
+.like-button {
+            
+    border: none;
+    color: #333;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.like-button:hover {
+    color: #000;
+}
+
+.like-button i {
+    margin-right: 5px;
+}
+
+.add-to-cart-button {
+    background-color: #ffcc00;
+}
+
+.buy-now-button {
+    background-color: #89d42c;
+    color: #fff;
+}
+.share-menu {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin-top: 70px;
+}
+
+.share-button {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #89d42c;
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.3s ease;
+}
+
+.social-button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #89d42c;
+    color: #000000;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s;
+    transform: scale(0);
+}
+
+.twitter {
+    top: -60px;
+    left: 0;
+}
+
+.whatsapp {
+    top: -40px;
+    right: -40px;
+}
+
+.facebook {
+    top: 0;
+    right: -60px;
+}
+
+.instagram {
+    bottom: -40px;
+    right: -40px;
+}
+
+.linkedin {
+    bottom: -60px;
+    left: 0;
+}
+
+.show .social-button {
+    opacity: 1;
+    transform: scale(1);
+}
+
+#related-products {
+    margin-top: 2em;
+}
+
+.related-product {
+    display: inline-block;
+    margin-right: 1em;
+    text-align: center;
+}
+
+footer {
+    background-color: #000000;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    bottom: 0;
+    width: 100%;
+}
